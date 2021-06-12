@@ -14,6 +14,10 @@ deleteCategory:
     path: /deleteCategory/{id}
     controller: App\Controller\CategoryController::deleteCategory
 
+updateCategory:
+    path: /updateCategory/{id}
+    controller: App\Controller\CategoryController::updateCategory
+
 products:
     path: /home
     controller: App\Controller\ProductController::home   

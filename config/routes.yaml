@@ -1,0 +1,15 @@
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+listCategories:
+    path: /listCategories
+    controller: App\Controller\CategoryController::listCategories
+
+addCategoryForm:
+    path: /addCategory
+    controller: App\Controller\CategoryController::addCategory
+
+products:
+    path: /home
+    controller: App\Controller\ProductController::home   

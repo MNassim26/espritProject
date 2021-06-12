@@ -21,6 +21,24 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * @Route("/addCategory", name="addCategory")
+     */
+    public function addCategory(Request $request)
+    {   
+        $category = new Category();
+        $form = $this->createForm(CategoryFormType::class,$category);
+        $form->add('Ajouter', SubmitType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('listCategories');
+        }
+        return $this->render('category/add.html.twig', array("form" => $form->createView()));
+    }
+
+    /**
      * @Route("/listCategories", name="listCategories")
      */
     public function listCategories()
@@ -39,21 +57,5 @@ class CategoryController extends AbstractController
         $em->remove($category);
         $em->flush();
         return $this->redirectToRoute("listCategories");
-    }
-
-
-    public function addCategory(Request $request)
-    {   
-        $category = new Category();
-        $form = $this->createForm(CategoryFormType::class,$category);
-        $form->add('Ajouter', SubmitType::class);
-        $form->handleRequest($request);
-        if($form->isSubmitted()){
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($category);
-            $em->flush();
-            return $this->redirectToRoute('listCategories');
-        }
-        return $this->render('category/add.html.twig', array("form" => $form->createView()));
     }
 }

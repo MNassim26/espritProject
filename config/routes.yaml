@@ -6,9 +6,13 @@ listCategories:
     path: /listCategories
     controller: App\Controller\CategoryController::listCategories
 
-addCategoryForm:
+addCategory:
     path: /addCategory
     controller: App\Controller\CategoryController::addCategory
+
+deleteCategory:
+    path: /deleteCategory/{id}
+    controller: App\Controller\CategoryController::deleteCategory
 
 products:
     path: /home

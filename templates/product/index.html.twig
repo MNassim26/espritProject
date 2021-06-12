@@ -1,20 +1,30 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello ProductController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/espritProject/src/Controller/ProductController.php'|file_link(0) }}">src/Controller/ProductController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/espritProject/templates/product/index.html.twig'|file_link(0) }}">templates/product/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+<a href="{{ path('addProduct')}}">Ajouter</a>
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Prix</th>
+            <th>Quantité</th>
+            <th>Catégorie</th>
+            <th>Fournisseur</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in products %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.supplier }}</td>
+                <td>
+                    <a href="{{ path('deleteProduct',{'id':item.id}) }}">Delete</a>
+                    <a href="{{ path('updateProduct',{'id':item.id}) }}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

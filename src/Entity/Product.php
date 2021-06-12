@@ -107,6 +107,18 @@ class Product
         return $this;
     }
 
+    public function getSupplier(): ?Supplier
+    {
+        return $this->supplier;
+    }
+
+    public function setSupplier(?Supplier $supplier): self
+    {
+        $this->supplier = $supplier;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Order[]
      */
@@ -133,4 +145,6 @@ class Product
 
         return $this;
     }
+
+
 }

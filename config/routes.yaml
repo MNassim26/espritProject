@@ -18,6 +18,18 @@ updateCategory:
     path: /updateCategory/{id}
     controller: App\Controller\CategoryController::updateCategory
 
-products:
-    path: /home
-    controller: App\Controller\ProductController::home   
+listProducts:
+    path: /listProducts
+    controller: App\Controller\ProductController::listProducts
+
+addProduct:
+    path: /addProduct
+    controller: App\Controller\ProductController::addProduct
+    
+deleteProduct:
+    path: /deleteProduct/{id}
+    controller: App\Controller\ProductController::deleteProduct
+
+updateProduct:
+    path: /updateProduct/{id}
+    controller: App\Controller\ProductController::updateProduct

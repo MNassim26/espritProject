@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Form\ProductFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,6 +26,7 @@ class ProductController extends AbstractController
             'controller_name' => 'ProductController',
         ]);
     }
+    
 
     /**
      * @Route("/listProducts", name="listProducts")
@@ -31,6 +35,24 @@ class ProductController extends AbstractController
     {
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
         return $this->render('product/index.html.twig', array("products" => $products));
+    }
+
+    /**
+     * @Route("/addCategory", name="addCategory")
+     */
+    public function addProduct(Request $request)
+    {   
+        $product = new Product();
+        $form = $this->createForm(ProductFormType::class,$product);
+        $form->add('Ajouter', SubmitType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('listProducts');
+        }
+        return $this->render('product/add.html.twig', array("form" => $form->createView()));
     }
 
     /**
@@ -43,6 +65,25 @@ class ProductController extends AbstractController
         $em->remove($product);
         $em->flush();
         return $this->redirectToRoute("listProducts");
+    }
+
+    /**
+     * @Route("/updateProduct/{id}", name="updateProduct")
+     */
+    public function updateProduct(Request $request,$id)
+    {
+        $product = $this->getDoctrine()->getRepository(Product::class)->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(ProductFormType::class,$product);
+        $form->add('Modifier', SubmitType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return $this->redirectToRoute("listProducts");
+        }
+        return $this->render('product/add.html.twig', array("form" => $form->createView()));
+
     }
     
 

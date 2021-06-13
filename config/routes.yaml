@@ -33,3 +33,39 @@ deleteProduct:
 updateProduct:
     path: /updateProduct/{id}
     controller: App\Controller\ProductController::updateProduct
+
+listSuppliers:
+    path: /listSuppliers
+    controller: App\Controller\SupplierController::listSuppliers
+
+addSupplier:
+    path: /addSupplier
+    controller: App\Controller\SupplierController::addSupplier
+    
+deleteSupplier:
+    path: /deleteSupplier/{id}
+    controller: App\Controller\SupplierController::deleteSupplier
+
+updateSupplier:
+    path: /updateSupplier/{id}
+    controller: App\Controller\SupplierController::updateSupplier
+
+listOrders:
+    path: /listOrders
+    controller: App\Controller\OrderController::listOrders
+
+addOrder:
+    path: /addOrder
+    controller: App\Controller\OrderController::addOrder
+    
+deleteOrder:
+    path: /deleteOrder/{id}
+    controller: App\Controller\OrderController::deleteOrder
+
+updateOrder:
+    path: /updateOrder/{id}
+    controller: App\Controller\OrderController::updateOrder
+
+addFacture:
+    path: /addFacture/{id}
+    controller: App\Controller\FactureController::addFacture

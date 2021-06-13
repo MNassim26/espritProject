@@ -31,7 +31,12 @@ class Order
     private $products;
 
     /**
-     * @ORM\OneToOne(targetEntity=Facture::class, mappedBy="confirmedOrder", cascade={"persist", "remove"})
+     * @ORM\Column(type="float")
+     */
+    private $totalPrice;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Facture::class, mappedBy="order", cascade={"persist", "remove"})
      */
     private $facture;
 
@@ -100,8 +105,8 @@ class Order
     public function setFacture(Facture $facture): self
     {
         // set the owning side of the relation if necessary
-        if ($facture->getConfirmedOrder() !== $this) {
-            $facture->setConfirmedOrder($this);
+        if ($facture->getOrder() !== $this) {
+            $facture->setOrder($this);
         }
 
         $this->facture = $facture;
@@ -145,6 +150,18 @@ class Order
     public function setClient($client)
     {
         $this->client = $client;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(float $totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }

@@ -1,0 +1,24 @@
+<a href="{{ path('addSupplier')}}">Ajouter</a>
+<table class="table" border="1">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Adress</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in suppliers %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.adress }}</td>
+                <td>
+                    <a href="{{ path('deleteSupplier',{'id':item.id}) }}">Delete</a>
+                    <a href="{{ path('updateSupplier',{'id':item.id}) }}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

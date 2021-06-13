@@ -23,10 +23,9 @@ class Facture
     private $date;
 
     /**
-     * @ORM\OneToOne(targetEntity=order::class, inversedBy="facture", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=Order::class, inversedBy="facture", cascade={"persist", "remove"})
      */
-    private $confirmedOrder;
+    private $order;
 
     public function getId(): ?int
     {
@@ -45,14 +44,14 @@ class Facture
         return $this;
     }
 
-    public function getConfirmedOrder(): ?order
+    public function getOrder(): ?Order
     {
-        return $this->confirmedOrder;
+        return $this->order;
     }
 
-    public function setConfirmedOrder(order $confirmedOrder): self
+    public function setOrder(Order $order): self
     {
-        $this->confirmedOrder = $confirmedOrder;
+        $this->order = $order;
 
         return $this;
     }

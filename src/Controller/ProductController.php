@@ -82,7 +82,7 @@ class ProductController extends AbstractController
             $em->flush();
             return $this->redirectToRoute("listProducts");
         }
-        return $this->render('product/add.html.twig', array("form" => $form->createView()));
+        return $this->render('product/update.html.twig', array("form" => $form->createView()));
 
     }
     

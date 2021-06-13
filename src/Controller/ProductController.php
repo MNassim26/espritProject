@@ -85,6 +85,18 @@ class ProductController extends AbstractController
         return $this->render('product/update.html.twig', array("form" => $form->createView()));
 
     }
+
+    public function updateProductsQuantity($products, $action){
+        if($action =="deleteAction"){
+            foreach($products as $product){
+                $product->setQuantity($product->getQuantity()+1);
+            }
+        } elseif($action=="addAction"){
+            foreach($products as $product){
+                $product->setQuantity($product->getQuantity()-1);
+            } 
+        }
+    }
     
 
 

@@ -47,8 +47,10 @@ class FactureController extends AbstractController
      * @Route("/deleteFacture/{id}", name="deleteFacture")
      */
     public function deleteFacture($id)
-    {
+    { 
         $facture = $this->getDoctrine()->getRepository(Facture::class)->find($id);
+        $productController = new ProductController();
+        $productController->updateProductsQuantity($facture->getOrder()->getProducts(),"deleteAction");
         $em = $this->getDoctrine()->getManager();
         $em->remove($facture);
         $em->flush();

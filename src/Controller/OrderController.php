@@ -10,8 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use function PHPUnit\Framework\equalTo;
+
 class OrderController extends AbstractController
-{
+{   
+    
     #[Route('/order', name: 'order')]
     public function index(): Response
     {
@@ -25,6 +28,7 @@ class OrderController extends AbstractController
      */
     public function addOrder(Request $request)
     {   
+        $productController = new ProductController();
         $order = new Order();
         $form = $this->createForm(OrderFormType::class,$order);
         $form->add('Ajouter', SubmitType::class);
@@ -32,7 +36,8 @@ class OrderController extends AbstractController
         if($form->isSubmitted()){
             $order->setDate(new \DateTime('now'));
             $totalPrice=$this->calculateTotalPrice($order->getProducts());
-            $order->setTotalPrice($totalPrice);   
+            $order->setTotalPrice($totalPrice);
+            $productController->updateProductsQuantity($order->getProducts(),"addAction");
             $em = $this->getDoctrine()->getManager();
             $em->persist($order);
             $em->flush();
@@ -54,8 +59,10 @@ class OrderController extends AbstractController
      * @Route("/deleteOrder/{id}", name="deleteOrder")
      */
     public function deleteOrder($id)
-    {
+    {   
+        $productController = new ProductController();
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
+        $productController->updateProductsQuantity($order->getProducts(),"deleteAction");
         $em = $this->getDoctrine()->getManager();
         $em->remove($order);
         $em->flush();
@@ -66,15 +73,18 @@ class OrderController extends AbstractController
      * @Route("/updateOrder/{id}", name="updateOrder")
      */
     public function updateOrder(Request $request,$id)
-    {
+    {   
+        $productController = new ProductController();
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
+        $productController->updateProductsQuantity($order->getProducts(),"deleteAction");
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(OrderFormType::class,$order);
         $form->add('Modifier', SubmitType::class);
         $form->handleRequest($request);
         if($form->isSubmitted()){
             $totalPrice=$this->calculateTotalPrice($order->getProducts());
-            $order->setTotalPrice($totalPrice);   
+            $order->setTotalPrice($totalPrice);
+            $productController->updateProductsQuantity($order->getProducts(),"addAction");   
             $em = $this->getDoctrine()->getManager();
             $em->flush();
             return $this->redirectToRoute("listOrders");

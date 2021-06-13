@@ -34,6 +34,10 @@ updateProduct:
     path: /updateProduct/{id}
     controller: App\Controller\ProductController::updateProduct
 
+exportProducts:
+    path: /exportProducts
+    controller: App\Controller\ProductController::exportProducts
+
 listSuppliers:
     path: /listSuppliers
     controller: App\Controller\SupplierController::listSuppliers

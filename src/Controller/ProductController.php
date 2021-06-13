@@ -1,6 +1,8 @@
 <?php
 
+
 namespace App\Controller;
+
 
 use App\Entity\Product;
 use App\Form\ProductFormType;
@@ -9,6 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 
 class ProductController extends AbstractController
 {
@@ -97,7 +102,51 @@ class ProductController extends AbstractController
             } 
         }
     }
+
+    private function getData(): array
+    {
+        $list = [];
+        $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
+
+        foreach ($products as $product) {
+            $list[] = [
+                $product->getId(),
+                $product->getName(),
+                $product->getPrice(),
+                $product->getQuantity(),
+                $product->getCategory(),
+                $product->getSupplier()
+            ];
+        }
+        return $list;
+    }
     
+    /**
+     * @Route("/exportProducts", name="exportProducts")
+     */
+    public function exportProducts()
+    {
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setTitle('Products List');
+        $sheet->getCell('A1')->setValue('Id');
+        $sheet->getCell('B1')->setValue('Name');
+        $sheet->getCell('C1')->setValue('Price');
+        $sheet->getCell('D1')->setValue('Quantity');
+        $sheet->getCell('E1')->setValue('Category');
+        $sheet->getCell('F1')->setValue('Supplier');
+        
+        // Increase row cursor after header write
+            $sheet->fromArray($this->getData(),null, 'A2', true);
+
+        $writer = new Xlsx($spreadsheet);
+
+        $writer->save('listProducts.xlsx');
+
+        return $this->redirectToRoute('listProducts');
+    }
 
 
 }

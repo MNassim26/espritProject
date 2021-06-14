@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductFormType;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +38,7 @@ class ProductController extends AbstractController
      * @Route("/listProducts", name="listProducts")
      */
     public function listProducts()
-    {
+    {   
         $products = $this->getDoctrine()->getRepository(Product::class)->findAll();
         return $this->render('product/index.html.twig', array("products" => $products));
     }
@@ -55,6 +56,7 @@ class ProductController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
+            $this->addFlash('productAdded', 'The product has been added');
             return $this->redirectToRoute('listProducts');
         }
         return $this->render('product/add.html.twig', array("form" => $form->createView()));
@@ -69,6 +71,7 @@ class ProductController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($product);
         $em->flush();
+        $this->addFlash('productDeleted', 'The product has been deleted');
         return $this->redirectToRoute("listProducts");
     }
 
@@ -85,6 +88,7 @@ class ProductController extends AbstractController
         if($form->isSubmitted()){
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            $this->addFlash('productUpdated', 'The product has been updated');
             return $this->redirectToRoute("listProducts");
         }
         return $this->render('product/update.html.twig', array("form" => $form->createView()));
@@ -138,13 +142,13 @@ class ProductController extends AbstractController
         $sheet->getCell('E1')->setValue('Category');
         $sheet->getCell('F1')->setValue('Supplier');
         
-        // Increase row cursor after header write
-            $sheet->fromArray($this->getData(),null, 'A2', true);
+        $sheet->fromArray($this->getData(),null, 'A2', true);
 
         $writer = new Xlsx($spreadsheet);
-
-        $writer->save('listProducts.xlsx');
-
+        $fileDate= new DateTime();
+        $fileDate = $fileDate->format('d-m-Y');
+        $writer->save('listProducts -'.$fileDate.'.xlsx');
+        $this->addFlash('ExcelFileSaved', 'Excel file saved');
         return $this->redirectToRoute('listProducts');
     }
 

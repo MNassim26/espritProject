@@ -1,3 +1,4 @@
+<a href="{{ path('exportFactures') }}">Export</a>
 <table class="table" border="1">
     <thead>
         <tr>
@@ -27,3 +28,12 @@
         {% endfor %}
     </tbody>
 </table>
+{% for message in app.flashes('ExcelFileSaved') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('factureAdded') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('factureDeleted') %}
+    {{ message }}
+{% endfor %}

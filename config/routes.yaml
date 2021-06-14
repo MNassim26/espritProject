@@ -70,6 +70,18 @@ updateOrder:
     path: /updateOrder/{id}
     controller: App\Controller\OrderController::updateOrder
 
+exportOrders:
+    path: /exportOrders
+    controller: App\Controller\OrderController::exportOrders
+
 addFacture:
     path: /addFacture/{id}
     controller: App\Controller\FactureController::addFacture
+
+deleteFacture:
+    path: /deleteFacture/{id}
+    controller: App\Controller\FactureController::deleteFacture
+
+exportFactures:
+    path: /exportFactures
+    controller: App\Controller\OrderController::exportFactures

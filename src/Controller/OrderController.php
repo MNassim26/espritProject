@@ -4,13 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Form\OrderFormType;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
-use function PHPUnit\Framework\equalTo;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class OrderController extends AbstractController
 {   
@@ -41,6 +42,7 @@ class OrderController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($order);
             $em->flush();
+            $this->addFlash('orderAdded', 'The order has been added');
             return $this->redirectToRoute('listOrders');
         }
         return $this->render('order/add.html.twig', array("form" => $form->createView()));
@@ -66,6 +68,7 @@ class OrderController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->remove($order);
         $em->flush();
+        $this->addFlash('orderDeleted', 'The order has been deleted');
         return $this->redirectToRoute("listOrders");
     }
 
@@ -87,6 +90,7 @@ class OrderController extends AbstractController
             $productController->updateProductsQuantity($order->getProducts(),"addAction");   
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            $this->addFlash('orderUpdated', 'The order has been updated');
             return $this->redirectToRoute("listOrders");
         }
         return $this->render('order/update.html.twig', array("form" => $form->createView()));
@@ -99,5 +103,52 @@ class OrderController extends AbstractController
             $totalPrice=$totalPrice+$product->getPrice();
         }
         return $totalPrice;
+    }
+
+    private function getData(): array
+    {
+        $list = [];
+        $listProducts="";
+        $orders = $this->getDoctrine()->getRepository(Order::class)->findAll();
+
+        foreach ($orders as $order) {
+            if($order->getFacture()==null){
+                foreach($order->getProducts() as $product){
+                $listProducts=$listProducts." \n ".$product;
+                }
+                $list[] = [
+                    $order->getId(),
+                    $order->getDate(),
+                    $listProducts,
+                    $order->getTotalPrice(),
+                ];
+            }
+        }
+        return $list;
+    }
+    
+    /**
+     * @Route("/exportOrders", name="exportOrders")
+     */
+    public function exportOrders()
+    {
+        $spreadsheet = new Spreadsheet();
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setTitle('Orders List');
+        $sheet->getCell('A1')->setValue('Id');
+        $sheet->getCell('B1')->setValue('Date');
+        $sheet->getCell('C1')->setValue('Products');
+        $sheet->getCell('D1')->setValue('Total price');
+        
+        $sheet->fromArray($this->getData(),null, 'A2', true);
+
+        $writer = new Xlsx($spreadsheet);
+        $fileDate= new DateTime();
+        $fileDate = $fileDate->format('d-m-Y');
+        $writer->save('listOrders -'.$fileDate.'.xlsx');
+        $this->addFlash('ExcelFileSaved', 'Excel file saved');
+        return $this->redirectToRoute('listOrders');
     }
 }

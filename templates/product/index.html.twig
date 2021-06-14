@@ -1,4 +1,5 @@
- <a href="{{ path('exportProducts') }}">Export</a>
+
+<a href="{{ path('exportProducts') }}">Export</a>
 <a href="{{ path('addProduct')}}">Ajouter</a>
 <table class="table" border="1">
     <thead>
@@ -29,3 +30,15 @@
         {% endfor %}
     </tbody>
 </table>
+{% for message in app.flashes('ExcelFileSaved') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('productAdded') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('productUpdated') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('productDeleted') %}
+    {{ message }}
+{% endfor %}

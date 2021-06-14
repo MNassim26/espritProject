@@ -1,3 +1,4 @@
+<a href="{{ path('exportOrders') }}">Export</a>
 <a href="{{ path('addOrder')}}">Ajouter</a>
 <table class="table" border="1">
     <thead>
@@ -32,3 +33,15 @@
         {% endfor %}
     </tbody>
 </table>
+{% for message in app.flashes('ExcelFileSaved') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('orderAdded') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('orderUpdated') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('orderDeleted') %}
+    {{ message }}
+{% endfor %}

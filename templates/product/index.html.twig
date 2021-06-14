@@ -42,3 +42,6 @@
 {% for message in app.flashes('productDeleted') %}
     {{ message }}
 {% endfor %}
+{% for message in app.flashes('productDeleteError') %}
+    {{ message }}
+{% endfor %}

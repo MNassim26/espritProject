@@ -22,3 +22,15 @@
         {% endfor %}
     </tbody>
 </table>
+{% for message in app.flashes('supplierAdded') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('supplierUpdated') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('supplierDeleted') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('supplierDeleteError') %}
+    {{ message }}
+{% endfor %}

@@ -68,11 +68,17 @@ class ProductController extends AbstractController
     public function deleteProduct($id)
     {
         $product = $this->getDoctrine()->getRepository(Product::class)->find($id);
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($product);
-        $em->flush();
-        $this->addFlash('productDeleted', 'The product has been deleted');
-        return $this->redirectToRoute("listProducts");
+        if($product->getOrders() !=null){
+                $this->addFlash('productDeleteError', 'This product can not be deleted, it is already ordered !');
+                return $this->redirectToRoute("listProducts");
+        } 
+        else{
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($product);
+            $em->flush();
+            $this->addFlash('productDeleted', 'The product has been deleted');
+            return $this->redirectToRoute("listProducts");
+        }
     }
 
     /**

@@ -33,6 +33,7 @@ class CategoryController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
+            $this->addFlash('categoryAdded', 'The category has been added');
             return $this->redirectToRoute('listCategories');
         }
         return $this->render('category/add.html.twig', array("form" => $form->createView()));
@@ -53,9 +54,14 @@ class CategoryController extends AbstractController
     public function deleteCategory($id)
     {
         $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
+        if($category->getProducts() !=null){
+            $this->addFlash('categoryDeleteError', 'This category can not be deleted, it is already used by some products !');
+            return $this->redirectToRoute("listCategories");
+        }
         $em = $this->getDoctrine()->getManager();
         $em->remove($category);
         $em->flush();
+        $this->addFlash('categoryDeleted', 'The category has been deleted');
         return $this->redirectToRoute("listCategories");
     }
 
@@ -72,6 +78,7 @@ class CategoryController extends AbstractController
         if($form->isSubmitted()){
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            $this->addFlash('categoryUpdated', 'The category has been updated');
             return $this->redirectToRoute("listCategories");
         }
         return $this->render('category/update.html.twig', array("form" => $form->createView()));

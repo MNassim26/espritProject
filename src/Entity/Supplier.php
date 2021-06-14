@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SupplierRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,6 +58,18 @@ class Supplier
     public function setAdress(?string $adress): self
     {
         $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getProducts() : Collection
+    {
+        return $this->products;
+    }
+
+    public function setProducts($products) : self
+    {
+        $this->products = $products;
 
         return $this;
     }

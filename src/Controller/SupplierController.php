@@ -33,6 +33,7 @@ class SupplierController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($supplier);
             $em->flush();
+            $this->addFlash('supplierAdded', 'The supplier has been added');
             return $this->redirectToRoute('listSuppliers');
         }
         return $this->render('supplier/add.html.twig', array("form" => $form->createView()));
@@ -53,10 +54,17 @@ class SupplierController extends AbstractController
     public function deleteSupplier($id)
     {
         $supplier = $this->getDoctrine()->getRepository(Supplier::class)->find($id);
+        if($supplier->getProducts() !=null){
+            $this->addFlash('supplierDeleteError', 'This supplier can not be deleted, it has already supplied some products !');
+            return $this->redirectToRoute("listSuppliers");
+        }
+        else {
         $em = $this->getDoctrine()->getManager();
         $em->remove($supplier);
         $em->flush();
+        $this->addFlash('supplierDeleted', 'The supplier has been deleted');
         return $this->redirectToRoute("listSuppliers");
+        }
     }
 
     /**
@@ -72,6 +80,7 @@ class SupplierController extends AbstractController
         if($form->isSubmitted()){
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            $this->addFlash('supplierUpdated', 'The supplier has been updated');
             return $this->redirectToRoute("listSuppliers");
         }
         return $this->render('supplier/update.html.twig', array("form" => $form->createView()));

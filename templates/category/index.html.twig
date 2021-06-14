@@ -20,3 +20,15 @@
         {% endfor %}
     </tbody>
 </table>
+{% for message in app.flashes('categoryAdded') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('categoryUpdated') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('categoryDeleted') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('categoryDeleteError') %}
+    {{ message }}
+{% endfor %}

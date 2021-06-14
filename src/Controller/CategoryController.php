@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Product;
 use App\Form\CategoryFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -54,9 +55,12 @@ class CategoryController extends AbstractController
     public function deleteCategory($id)
     {
         $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
-        if($category->getProducts() !=null){
-            $this->addFlash('categoryDeleteError', 'This category can not be deleted, it is already used by some products !');
+        $products= $this->getDoctrine()->getRepository(Product::class)->findAll();
+        foreach($products as $product){
+            if($product->getCategory() == $category){
+                $this->addFlash('categoryDeleteError', 'This category can not be deleted, it is already used by some products !');
             return $this->redirectToRoute("listCategories");
+            }
         }
         $em = $this->getDoctrine()->getManager();
         $em->remove($category);

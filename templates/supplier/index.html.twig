@@ -1,3 +1,16 @@
+<form action="{{ path('uploadSuppliers') }}" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
+
+        <div>
+            <label for="myfile">File to upload:</label>
+            <input type="file" name="myfile" id="myfile">
+        </div>
+
+        <button type="submit">Upload</button>
+
+  </form>
+<a href="{{ path('uploadSuppliers')}}">upload</a>
 <a href="{{ path('addSupplier')}}">Ajouter</a>
 <table class="table" border="1">
     <thead>
@@ -32,5 +45,8 @@
     {{ message }}
 {% endfor %}
 {% for message in app.flashes('supplierDeleteError') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('supplierDataUploaded') %}
     {{ message }}
 {% endfor %}

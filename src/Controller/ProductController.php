@@ -215,7 +215,7 @@ class ProductController extends AbstractController
                 else {
                     $product->setCategory($category_existant);
                 }
-                $supplier_existant = $em->getRepository(Category::class)->findOneBy(array('name' => $supplierName));
+                $supplier_existant = $em->getRepository(Supplier::class)->findOneBy(array('name' => $supplierName));
                 if (!$supplier_existant){
                     $supplier = new Supplier();
                     $supplier->setName($supplierName);
@@ -227,7 +227,6 @@ class ProductController extends AbstractController
                 else{
                     $product->setSupplier($supplier_existant);
                 }
-                $product->setOrders(null);
                 $em->persist($product); 
                 $em->flush(); 
                  // here Doctrine checks all the fields of all fetched data and make a transaction to the database.

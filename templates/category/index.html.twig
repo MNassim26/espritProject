@@ -1,3 +1,15 @@
+<form action="{{ path('uploadCategories') }}" method="post" enctype="multipart/form-data">
+
+        <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
+
+        <div>
+            <label for="myfile">File to upload:</label>
+            <input type="file" name="myfile" id="myfile">
+        </div>
+
+        <button type="submit">Upload</button>
+
+</form>
 <a href="{{ path('addCategory')}}">Ajouter</a>
 <table class="table" border="1">
     <thead>
@@ -30,5 +42,8 @@
     {{ message }}
 {% endfor %}
 {% for message in app.flashes('categoryDeleteError') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('categoryDataUploaded') %}
     {{ message }}
 {% endfor %}

@@ -1,4 +1,14 @@
+<form action="{{ path('uploadProducts') }}" method="post" enctype="multipart/form-data">
 
+        <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
+
+        <div>
+            <label for="myfile">File to upload:</label>
+            <input type="file" name="myfile" id="myfile">
+        </div>
+        <button type="submit">Upload</button>
+
+</form>
 <a href="{{ path('exportProducts') }}">Export</a>
 <a href="{{ path('addProduct')}}">Ajouter</a>
 <table class="table" border="1">
@@ -43,5 +53,8 @@
     {{ message }}
 {% endfor %}
 {% for message in app.flashes('productDeleteError') %}
+    {{ message }}
+{% endfor %}
+{% for message in app.flashes('productDataUploaded') %}
     {{ message }}
 {% endfor %}

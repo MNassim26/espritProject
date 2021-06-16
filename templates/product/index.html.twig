@@ -1,17 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="main-content">
 <form action="{{ path('uploadProducts') }}" method="post" enctype="multipart/form-data">
 
         <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
 
         <div>
-            <label for="myfile">File to upload:</label>
-            <input type="file" name="myfile" id="myfile">
+            <a href="{{ path('exportProducts') }}" class="btn btn-success ">Exporter DATA</a>
+            <label class="btn btn-dark">
+            <i class="fa fa-image"></i>Importer DATA<input type="file" style="display: none;" name="image">
+            </label>
+            <button class="btn btn-secondary" type="submit">Upload</button>
+            <a href="{{ path('addProduct')}}" class="btn btn-primary addButton">Ajouter</a>
         </div>
-        <button type="submit">Upload</button>
 
 </form>
-<a href="{{ path('exportProducts') }}">Export</a>
-<a href="{{ path('addProduct')}}">Ajouter</a>
-<table class="table" border="1">
+{% for message in app.flashes('ExcelFileSaved') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('productAdded') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('productUpdated') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('productDeleted') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('productDeleteError') %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('productDataUploaded') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+<table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Id</th>
@@ -33,28 +67,12 @@
                 <td>{{ item.category }}</td>
                 <td>{{ item.supplier }}</td>
                 <td>
-                    <a href="{{ path('deleteProduct',{'id':item.id}) }}">Delete</a>
-                    <a href="{{ path('updateProduct',{'id':item.id}) }}">Update</a>
+                    <a href="{{ path('deleteProduct',{'id':item.id}) }}" class="btn btn-danger">Delete</a>
+                    <a href="{{ path('updateProduct',{'id':item.id}) }}" class="btn btn-warning">Update</a>
                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
-{% for message in app.flashes('ExcelFileSaved') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('productAdded') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('productUpdated') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('productDeleted') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('productDeleteError') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('productDataUploaded') %}
-    {{ message }}
-{% endfor %}
+</div>
+{% endblock %}

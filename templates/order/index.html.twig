@@ -1,6 +1,31 @@
-<a href="{{ path('exportOrders') }}">Export</a>
-<a href="{{ path('addOrder')}}">Ajouter</a>
-<table class="table" border="1">
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="main-content">
+<form>
+    <a href="{{ path('exportOrders') }}" class="btn btn-success">Exporter DATA</a>
+    <a href="{{ path('addOrder')}}" class="btn btn-primary addButton">Ajouter</a>
+</form>
+{% for message in app.flashes('ExcelFileSaved') %}
+   <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('orderAdded') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('orderUpdated') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('orderDeleted') %}
+   <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+<table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Id</th>
@@ -24,24 +49,14 @@
                     </td>
                     <td> {{ item.totalPrice }} DT </tD>
                     <td>
-                        <a href="{{ path('deleteOrder',{'id':item.id}) }}">Delete</a>
-                        <a href="{{ path('updateOrder',{'id':item.id}) }}">Update</a>
-                        <a href="{{ path('addFacture',{'id':item.id}) }}">Confirm</a>
+                        <a href="{{ path('deleteOrder',{'id':item.id}) }}"  class="btn btn-danger">Delete</a>
+                        <a href="{{ path('updateOrder',{'id':item.id}) }}" class="btn btn-warning">Update</a>
+                        <a href="{{ path('addFacture',{'id':item.id}) }}" class="btn btn-success">Confirm</a>
                     </td>
                 </tr>
             {% endif %}
         {% endfor %}
     </tbody>
 </table>
-{% for message in app.flashes('ExcelFileSaved') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('orderAdded') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('orderUpdated') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('orderDeleted') %}
-    {{ message }}
-{% endfor %}
+</div>
+{% endblock %}

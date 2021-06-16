@@ -1,3 +1,6 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="main-content">
 <form action="{{ path('uploadSuppliers') }}" method="post" enctype="multipart/form-data">
 
         <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
@@ -49,3 +52,5 @@
 {% for message in app.flashes('supplierDataUploaded') %}
     {{ message }}
 {% endfor %}
+</div>
+{% endblock %}

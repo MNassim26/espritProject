@@ -1,4 +1,13 @@
-{{form(form)}}
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="main-content">
+<form>
 {% for message in app.flashes('orderError') %}
-    {{ message }}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
 {% endfor %}
+</form>
+{{form(form)}}
+</div>
+{% endblock %}

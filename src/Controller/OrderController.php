@@ -38,10 +38,16 @@ class OrderController extends AbstractController
             $order->setDate(new \DateTime('now'));
             $totalPrice=$this->calculateTotalPrice($order->getProducts());
             $order->setTotalPrice($totalPrice);
-            foreach($order->getProducts() as $product){
-                if($product->getQuantity() == 0){
-                    $this->addFlash('orderError', $product->getName().' is out of stock');
-                    return $this->render('order/add.html.twig', array("form" => $form->createView()));
+            if($totalPrice == 0){
+                $this->addFlash('orderError','An order must contain atleast one product');
+                return  $this->redirectToRoute("addOrder");
+            }
+            else{
+                foreach($order->getProducts() as $product){
+                    if($product->getQuantity() == 0){
+                        $this->addFlash('orderError', $product->getName().' is out of stock');
+                        return $this->render('order/add.html.twig', array("form" => $form->createView()));
+                    }
                 }
             }
             $productController->updateProductsQuantity($order->getProducts(),"addAction");

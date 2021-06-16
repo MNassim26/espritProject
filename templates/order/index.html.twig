@@ -21,7 +21,7 @@
     </div>
 {% endfor %}
 {% for message in app.flashes('orderDeleted') %}
-   <div class="alert alert-danger" role="alert">
+   <div class="alert alert-success" role="alert">
         {{ message }}
     </div>
 {% endfor %}
@@ -49,9 +49,9 @@
                     </td>
                     <td> {{ item.totalPrice }} DT </tD>
                     <td>
-                        <a href="{{ path('deleteOrder',{'id':item.id}) }}"  class="btn btn-danger">Delete</a>
-                        <a href="{{ path('updateOrder',{'id':item.id}) }}" class="btn btn-warning">Update</a>
-                        <a href="{{ path('addFacture',{'id':item.id}) }}" class="btn btn-success">Confirm</a>
+                        <a href="{{ path('deleteOrder',{'id':item.id}) }}"  class="btn btn-danger">Supprimer</a>
+                        <a href="{{ path('updateOrder',{'id':item.id}) }}" class="btn btn-warning">Modifier</a>
+                        <a href="{{ path('addFacture',{'id':item.id}) }}" class="btn btn-success">Confirmer</a>
                     </td>
                 </tr>
             {% endif %}

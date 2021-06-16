@@ -24,9 +24,9 @@
         <tr>
             <th>Id</th>
             <th>Date</th>
-            <th>Products</th>
-            <th>Total price</th>
-            <th>Action</th>
+            <th>Produits</th>
+            <th>Prix total</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -42,7 +42,7 @@
                     </td>
                     <td>{{ item.order.totalPrice  }} DT</td>
                     <td>
-                        <a href="{{ path('deleteFacture',{'id':item.id}) }}" class="btn btn-danger">Delete</a>
+                        <a href="{{ path('deleteFacture',{'id':item.id}) }}" class="btn btn-danger">Supprimer</a>
                     </td>
                 </tr>
         {% endfor %}

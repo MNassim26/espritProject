@@ -43,9 +43,9 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Adress</th>
-            <th>Action</th>
+            <th>Nom</th>
+            <th>Adresse</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -55,8 +55,8 @@
                 <td>{{ item.name }}</td>
                 <td>{{ item.adress }}</td>
                 <td>
-                    <a href="{{ path('deleteSupplier',{'id':item.id}) }}"  class="btn btn-danger">Delete</a>
-                    <a href="{{ path('updateSupplier',{'id':item.id}) }}"  class="btn btn-warning">Update</a>
+                    <a href="{{ path('deleteSupplier',{'id':item.id}) }}"  class="btn btn-danger">Supprimer</a>
+                    <a href="{{ path('updateSupplier',{'id':item.id}) }}"  class="btn btn-warning">Modifier</a>
                 </td>
             </tr>
         {% endfor %}

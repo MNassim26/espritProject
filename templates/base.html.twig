@@ -12,6 +12,7 @@
     </head>
     
     <body>
+    {% set route_name = app.request.attributes.get('_route') %}
       <div class="sidebar">
         <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="height:100%;">
           <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
@@ -21,33 +22,53 @@
           <hr>
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-              <a href="{{ path('listOrders') }}" class="nav-link active" aria-current="page">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-                Orders
+              {% if route_name == "listOrders" %} 
+                <a href="{{ path('listOrders') }}" class="nav-link active" aria-current="page">
+              {% else %} 
+                <a href="{{ path('listOrders') }}" class="nav-link text-white" aria-current="page">
+              {% endif %}
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+              Gestion des commandes
               </a>
             </li>
             <li>
-              <a href="{{ path('listFactures') }}" class="nav-link text-white">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-                Factures
+              {% if route_name == "listFactures" %} 
+                <a href="{{ path('listFactures') }}" class="nav-link active" aria-current="page">
+              {% else %} 
+                <a href="{{ path('listFactures') }}" class="nav-link text-white" aria-current="page">
+              {% endif %}
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+              Gestion des factures
               </a>
             </li>
             <li>
-              <a href="{{ path('listProducts') }}" class="nav-link text-white">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-                Products
+            {% if route_name == "listProducts" %} 
+                <a href="{{ path('listProducts') }}" class="nav-link active" aria-current="page">
+              {% else %} 
+                <a href="{{ path('listProducts') }}" class="nav-link text-white" aria-current="page">
+              {% endif %}
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+              Gestion des produits
               </a>
             </li>
             <li>
-              <a href="{{ path('listCategories') }}" class="nav-link text-white">
+               {% if route_name == "listCategories" %} 
+                <a href="{{ path('listCategories') }}" class="nav-link active" aria-current="page">
+              {% else %} 
+                <a href="{{ path('listCategories') }}" class="nav-link text-white" aria-current="page">
+              {% endif %}
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                Categories
+                Gestion des catégories
               </a>
             </li>
             <li>
-              <a href="{{ path('listSuppliers') }}" class="nav-link text-white">
+              {% if route_name == "listSuppliers" %} 
+                <a href="{{ path('listSuppliers') }}" class="nav-link active" aria-current="page">
+              {% else %} 
+                <a href="{{ path('listSuppliers') }}" class="nav-link text-white" aria-current="page">
+              {% endif %}
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                Suppliers
+                Gestion des fournisseurs
               </a>
             </li>
           </ul>

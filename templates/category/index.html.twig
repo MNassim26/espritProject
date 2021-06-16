@@ -43,8 +43,8 @@
     <thead>
         <tr>
             <th>Id</th>
-            <th>Name</th>
-            <th>Action</th>
+            <th>Nom</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -53,8 +53,8 @@
                 <td>{{ item.id }}</td>
                 <td>{{ item.name }}</td>
                 <td>
-                    <a href="{{ path('deleteCategory',{'id':item.id}) }}" class="btn btn-danger">Delete</a>
-                    <a href="{{ path('updateCategory',{'id':item.id}) }}" class="btn btn-warning">Update</a>
+                    <a href="{{ path('deleteCategory',{'id':item.id}) }}" class="btn btn-danger">Supprimer</a>
+                    <a href="{{ path('updateCategory',{'id':item.id}) }}" class="btn btn-warning">Modifier</a>
                 </td>
             </tr>
         {% endfor %}

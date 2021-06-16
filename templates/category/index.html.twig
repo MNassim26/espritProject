@@ -1,17 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="main-content">
 <form action="{{ path('uploadCategories') }}" method="post" enctype="multipart/form-data">
 
         <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
 
         <div>
-            <label for="myfile">File to upload:</label>
-            <input type="file" name="myfile" id="myfile">
+             <label class="btn btn-success">
+            <i class="fa fa-image"></i>Importer DATA<input type="file" style="display: none;" name="image">
+            </label>
+            <button class="btn btn-secondary" type="submit">Upload</button>
+            <a href="{{ path('addCategory')}}" class="btn btn-primary addButton">Ajouter</a>
+
         </div>
-
-        <button type="submit">Upload</button>
-
 </form>
-<a href="{{ path('addCategory')}}">Ajouter</a>
-<table class="table" border="1">
+{% for message in app.flashes('categoryAdded') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('categoryUpdated') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('categoryDeleted') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('categoryDeleteError') %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('categoryDataUploaded') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+<table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Id</th>
@@ -25,25 +53,12 @@
                 <td>{{ item.id }}</td>
                 <td>{{ item.name }}</td>
                 <td>
-                    <a href="{{ path('deleteCategory',{'id':item.id}) }}">Delete</a>
-                    <a href="{{ path('updateCategory',{'id':item.id}) }}">Update</a>
+                    <a href="{{ path('deleteCategory',{'id':item.id}) }}" class="btn btn-danger">Delete</a>
+                    <a href="{{ path('updateCategory',{'id':item.id}) }}" class="btn btn-warning">Update</a>
                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
-{% for message in app.flashes('categoryAdded') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('categoryUpdated') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('categoryDeleted') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('categoryDeleteError') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('categoryDataUploaded') %}
-    {{ message }}
-{% endfor %}
+</div>
+{% endblock %}

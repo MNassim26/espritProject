@@ -1,20 +1,45 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 <div class="main-content">
-<form action="{{ path('uploadSuppliers') }}" method="post" enctype="multipart/form-data">
+<form action="{{ path('uploadSuppliers') }}" method="post" enctype="multipart/form-data" class="header">
 
         <input type="hidden" name="token" value="{{ csrf_token('upload') }}" />
 
         <div>
-            <label for="myfile">File to upload:</label>
-            <input type="file" name="myfile" id="myfile">
+            <label class="btn btn-success">
+            <i class="fa fa-image"></i>Importer DATA<input type="file" style="display: none;" name="image">
+            </label>
+            <button class="btn btn-secondary" type="submit">Upload</button>
+            <a href="{{ path('addSupplier')}}" class="btn btn-primary addButton">Ajouter</a>
         </div>
 
-        <button type="submit">Upload</button>
-
 </form>
-<a href="{{ path('addSupplier')}}">Ajouter</a>
-<table class="table" border="1">
+{% for message in app.flashes('supplierAdded') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('supplierUpdated') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('supplierDeleted') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('supplierDeleteError') %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('supplierDataUploaded') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+<table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>Id</th>
@@ -30,27 +55,12 @@
                 <td>{{ item.name }}</td>
                 <td>{{ item.adress }}</td>
                 <td>
-                    <a href="{{ path('deleteSupplier',{'id':item.id}) }}">Delete</a>
-                    <a href="{{ path('updateSupplier',{'id':item.id}) }}">Update</a>
+                    <a href="{{ path('deleteSupplier',{'id':item.id}) }}"  class="btn btn-danger">Delete</a>
+                    <a href="{{ path('updateSupplier',{'id':item.id}) }}"  class="btn btn-warning">Update</a>
                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
-{% for message in app.flashes('supplierAdded') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('supplierUpdated') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('supplierDeleted') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('supplierDeleteError') %}
-    {{ message }}
-{% endfor %}
-{% for message in app.flashes('supplierDataUploaded') %}
-    {{ message }}
-{% endfor %}
 </div>
 {% endblock %}

@@ -40,7 +40,7 @@ class ProductFormType extends AbstractType
                     'class'=>'form-control'
                 ],
                 'required' => false,
-                'placeholder' => 'Veuillez choisir une catégorie',
+                'placeholder' => '',
                 'class' => Category::class,
                 'choice_label' => 'name',
             ])
@@ -49,7 +49,7 @@ class ProductFormType extends AbstractType
                     'class'=>'form-control'
                 ],
                 'required' => false,
-                'placeholder' => 'Veuillez choisir un fournisseur',
+                'placeholder' => '',
                 'class' => Supplier::class,
                 'choice_label' => 'name',
             ])

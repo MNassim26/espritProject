@@ -37,7 +37,7 @@ class ProductFormType extends AbstractType
                 ])
             ->add('category',EntityType::class , [
                 'attr'=> [
-                    'class'=>'form-control'
+                    'class'=>'form-select'
                 ],
                 'required' => false,
                 'placeholder' => '',
@@ -46,7 +46,7 @@ class ProductFormType extends AbstractType
             ])
             ->add('supplier',EntityType::class , [
                 'attr'=> [
-                    'class'=>'form-control'
+                    'class'=>'form-select'
                 ],
                 'required' => false,
                 'placeholder' => '',

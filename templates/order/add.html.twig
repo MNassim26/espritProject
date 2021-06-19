@@ -8,6 +8,21 @@
     </div>
 {% endfor %}
 </form>
-{{form(form)}}
+{{ form_start(form) }}
+
+    {{ form_label(form.products, 'Produits') }}
+    {{ form_widget(form.products) }}
+
+    <br>
+    <div class="container">
+        <div class="row">
+            <input type="submit" name="" value="Enregistrer" class="btn btn-primary" style="width:48%" >
+            <input type="reset" name="" value="Réinitialiser" class="btn btn-danger"  style="width:48%;margin-left:4%">
+        </div>
+    </div>
+
+{{ form_end(form, {'render_rest': false}) }}
+
+
 </div>
 {% endblock %}

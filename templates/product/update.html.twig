@@ -1,6 +1,32 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 <div class="main-content">
-{{form(form)}}
+{{ form_start(form) }}
+    {{ form_label(form.name, 'Nom') }}
+    {{ form_widget(form.name) }}
+
+    {{ form_label(form.price, 'Prix') }}
+    {{ form_widget(form.price) }}
+
+    {{ form_label(form.quantity, 'Quantité') }}
+    {{ form_widget(form.quantity) }}
+
+    {{ form_label(form.category, 'Catégorie') }}
+    {{ form_widget(form.category) }}
+
+    {{ form_label(form.supplier, 'Fournisseur') }}
+    {{ form_widget(form.supplier) }}
+
+    <br>
+    <div class="container">
+        <div class="row">
+            <input type="submit" name="" value="Enregistrer" class="btn btn-primary" style="width:48%" >
+            <input type="reset" name="" value="Réinitialiser" class="btn btn-danger"  style="width:48%;margin-left:4%">
+        </div>
+    </div>
+
+{{ form_end(form, {'render_rest': false}) }}
+
+
 </div>
 {% endblock %}

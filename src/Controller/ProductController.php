@@ -18,6 +18,13 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+/**
+  * Require ROLE_ADMIN for *every* controller method in this class.
+  *
+  * @IsGranted("ROLE_USER")
+ */
 
 
 class ProductController extends AbstractController

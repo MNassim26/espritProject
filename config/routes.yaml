@@ -1,7 +1,3 @@
-index:
-    path: /
-    controller: App\Controller\DefaultController::index
-
 listCategories:
     path: /listCategories
     controller: App\Controller\CategoryController::listCategories
@@ -85,3 +81,7 @@ deleteFacture:
 exportFactures:
     path: /exportFactures
     controller: App\Controller\OrderController::exportFactures
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::logout

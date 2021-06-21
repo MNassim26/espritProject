@@ -30,32 +30,38 @@
         <tr>
             <th>Id</th>
             <th>Date</th>
+            <th>Client</th>
             <th>Produits</th>
             <th>Prix total</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        {% for item in orders %}
-            {% if item.facture == null %}
-                <tr>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.date | date("d/m/Y") }}</td>
-                    <td>
-                    {% for product in item.products %}
-                        -
-                        {{ product }}
-                        {% endfor %}
-                    </td>
-                    <td> {{ item.totalPrice }} DT </tD>
-                    <td>
-                        <a href="{{ path('deleteOrder',{'id':item.id}) }}"  class="btn btn-danger">Supprimer</a>
-                        <a href="{{ path('updateOrder',{'id':item.id}) }}" class="btn btn-warning">Modifier</a>
-                        <a href="{{ path('addFacture',{'id':item.id}) }}" class="btn btn-success">Confirmer</a>
-                    </td>
-                </tr>
-            {% endif %}
-        {% endfor %}
+        {% if orders == null %}
+            <td style="text-align: center;" colspan="5">Aucune donnée à afficher</td>
+        {% else %}
+            {% for item in orders %}
+                {% if item.facture == null %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.date | date("d/m/Y") }}</td>
+                        <td>{{ item.client }}</td>
+                        <td>
+                        {% for product in item.products %}
+                            -
+                            {{ product }}
+                            {% endfor %}
+                        </td>
+                        <td> {{ item.totalPrice }} DT </tD>
+                        <td>
+                            <a href="{{ path('deleteOrder',{'id':item.id}) }}"  class="btn btn-danger">Supprimer</a>
+                            <a href="{{ path('updateOrder',{'id':item.id}) }}" class="btn btn-warning">Modifier</a>
+                            <a href="{{ path('addFacture',{'id':item.id}) }}" class="btn btn-success">Confirmer</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </tbody>
 </table>
 </div>

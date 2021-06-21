@@ -48,6 +48,9 @@
         </tr>
     </thead>
     <tbody>
+        {% if categories == null %}
+            <td style="text-align: center;" colspan="5">Aucune donnée à afficher</td>
+        {% else %}
         {% for item in categories %}
             <tr>
                 <td>{{ item.id }}</td>
@@ -58,6 +61,7 @@
                 </td>
             </tr>
         {% endfor %}
+        {% endif %}
     </tbody>
 </table>
 </div>

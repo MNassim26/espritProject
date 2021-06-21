@@ -30,22 +30,26 @@
         </tr>
     </thead>
     <tbody>
-        {% for item in factures %}
-                <tr>
-                    <td>{{ item.id }}</td>
-                    <td>{{ item.date | date("d/m/Y") }}</td>
-                    <td>
-                        {% for product in item.order.products %}
-                        -
-                        {{ product }}
-                        {% endfor %}
-                    </td>
-                    <td>{{ item.order.totalPrice  }} DT</td>
-                    <td>
-                        <a href="{{ path('deleteFacture',{'id':item.id}) }}" class="btn btn-danger">Supprimer</a>
-                    </td>
-                </tr>
-        {% endfor %}
+        {% if factures == null %}
+            <td style="text-align: center;" colspan="5">Aucune donnée à afficher</td>
+        {% else %}
+            {% for item in factures %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.date | date("d/m/Y") }}</td>
+                        <td>
+                            {% for product in item.order.products %}
+                            -
+                            {{ product }}
+                            {% endfor %}
+                        </td>
+                        <td>{{ item.order.totalPrice  }} DT</td>
+                        <td>
+                            <a href="{{ path('deleteFacture',{'id':item.id}) }}" class="btn btn-danger">Supprimer</a>
+                        </td>
+                    </tr>
+            {% endfor %}
+        {% endif %}
     </tbody>
 </table>
 </div>

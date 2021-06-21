@@ -58,20 +58,24 @@
         </tr>
     </thead>
     <tbody>
-        {% for item in products %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.price }} DT</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.category }}</td>
-                <td>{{ item.supplier }}</td>
-                <td>
-                    <a href="{{ path('deleteProduct',{'id':item.id}) }}" class="btn btn-danger">Supprimer</a>
-                    <a href="{{ path('updateProduct',{'id':item.id}) }}" class="btn btn-warning">Modifier</a>
-                </td>
-            </tr>
-        {% endfor %}
+        {% if products == null %}
+            <td style="text-align: center;" colspan="5">Aucune donnée à afficher</td>
+        {% else %}
+            {% for item in products %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }} DT</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.category }}</td>
+                    <td>{{ item.supplier }}</td>
+                    <td>
+                        <a href="{{ path('deleteProduct',{'id':item.id}) }}" class="btn btn-danger">Supprimer</a>
+                        <a href="{{ path('updateProduct',{'id':item.id}) }}" class="btn btn-warning">Modifier</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
     </tbody>
 </table>
 </div>

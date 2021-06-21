@@ -11,6 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\Validator\Constraints\Date;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+/**
+  * Require ROLE_ADMIN for *every* controller method in this class.
+  *
+  * @IsGranted("ROLE_USER")
+ */
 
 class FactureController extends AbstractController
 {
@@ -43,7 +50,7 @@ class FactureController extends AbstractController
      * @Route("/listFactures", name="listFactures")
      */
     public function listFactures()
-    {
+    {   
         $factures = $this->getDoctrine()->getRepository(Facture::class)->findAll();
         return $this->render('facture/index.html.twig', array("factures" => $factures));
     }

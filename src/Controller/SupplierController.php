@@ -13,6 +13,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+/**
+  * Require ROLE_ADMIN for *every* controller method in this class.
+  *
+  * @IsGranted("ROLE_USER")
+ */
 
 class SupplierController extends AbstractController
 {

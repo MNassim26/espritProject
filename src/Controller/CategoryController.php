@@ -13,12 +13,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
+/**
+  * Require ROLE_ADMIN for *every* controller method in this class.
+  *
+  * @IsGranted("ROLE_USER")
+ */
 
 class CategoryController extends AbstractController
 {
     #[Route('/category', name: 'category')]
     public function index(): Response
-    {
+    {   
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
         return $this->render('category/index.html.twig', [
             'controller_name' => 'CategoryController',
         ]);

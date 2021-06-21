@@ -49,17 +49,21 @@
         </tr>
     </thead>
     <tbody>
-        {% for item in suppliers %}
-            <tr>
-                <td>{{ item.id }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.adress }}</td>
-                <td>
-                    <a href="{{ path('deleteSupplier',{'id':item.id}) }}"  class="btn btn-danger">Supprimer</a>
-                    <a href="{{ path('updateSupplier',{'id':item.id}) }}"  class="btn btn-warning">Modifier</a>
-                </td>
-            </tr>
-        {% endfor %}
+        {% if suppliers == null %}
+            <td style="text-align: center;" colspan="5">Aucune donnée à afficher</td>
+        {% else %}
+            {% for item in suppliers %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.adress }}</td>
+                    <td>
+                        <a href="{{ path('deleteSupplier',{'id':item.id}) }}"  class="btn btn-danger">Supprimer</a>
+                        <a href="{{ path('updateSupplier',{'id':item.id}) }}"  class="btn btn-warning">Modifier</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
     </tbody>
 </table>
 </div>

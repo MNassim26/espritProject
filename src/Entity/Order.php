@@ -41,15 +41,10 @@ class Order
     private $facture;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Admin::class, inversedBy="products")
-     */
-    private $admin;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="products")
+     * @ORM\Column(type="string", length=255)
      */
     private $client;
-    
+
 
     public function __construct()
     {
@@ -114,45 +109,6 @@ class Order
         return $this;
     }
 
-    /**
-     * Get the value of admin
-     */ 
-    public function getAdmin()
-    {
-        return $this->admin;
-    }
-
-    /**
-     * Set the value of admin
-     *
-     * @return  self
-     */ 
-    public function setAdmin($admin)
-    {
-        $this->admin = $admin;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of client
-     */ 
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    /**
-     * Set the value of client
-     *
-     * @return  self
-     */ 
-    public function setClient($client)
-    {
-        $this->client = $client;
-
-        return $this;
-    }
 
     public function getTotalPrice(): ?float
     {
@@ -162,6 +118,18 @@ class Order
     public function setTotalPrice(float $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getClient(): ?string
+    {
+        return $this->client;
+    }
+
+    public function setClient(string $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }

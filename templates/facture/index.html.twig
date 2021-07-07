@@ -23,6 +23,7 @@
     <thead>
         <tr>
             <th>Id</th>
+            <th>Client</th>
             <th>Date</th>
             <th>Produits</th>
             <th>Prix total</th>
@@ -31,11 +32,12 @@
     </thead>
     <tbody>
         {% if factures == null %}
-            <td style="text-align: center;" colspan="5">Aucune donnée à afficher</td>
+            <td style="text-align: center;" colspan="6">Aucune donnée à afficher</td>
         {% else %}
             {% for item in factures %}
                     <tr>
                         <td>{{ item.id }}</td>
+                        <td>{{ item.order.client }}</td>
                         <td>{{ item.date | date("d/m/Y") }}</td>
                         <td>
                             {% for product in item.order.products %}

@@ -85,3 +85,19 @@ exportFactures:
 login:
     path: /login
     controller: App\Controller\SecurityController::logout
+
+listUsers:
+    path: /listUsers
+    controller: App\Controller\UserController::listUsers
+
+addUser:
+    path: /addUser
+    controller: App\Controller\UserController::addUser
+
+deleteeUser:
+    path: /deleteUser/{id}
+    controller: App\Controller\UserController::deleteUser
+
+updateUser:
+    path: /updateUser/{id}
+    controller: App\Controller\UserController::updateUser

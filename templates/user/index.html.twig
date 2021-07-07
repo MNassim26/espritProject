@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="main-content">
+<form action="{{ path('addUser')}}" method="post" enctype="multipart/form-data">
+        <div>
+        <button class="btn btn-primary" type="submit" style="float:right;margin-bottom:10px;">Ajouter</button>
+        </div>
+</form>
+{% for message in app.flashes('userAdded') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('userUpdated') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('userDeleted') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if users == null %}
+            <td style="text-align: center;" colspan="4">Aucune donnée à afficher</td>
+        {% else %}
+            {% for item in users %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.username }}</td>
+                    <td>ROLE_ADMIN</td>
+                    <td>
+                        <a href="{{ path('deleteUser',{'id':item.id}) }}"  class="btn btn-danger">Supprimer</a>
+                        <a href="{{ path('updateUser',{'id':item.id}) }}" class="btn btn-warning">Modifier</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

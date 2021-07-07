@@ -26,7 +26,7 @@ class CategoryController extends AbstractController
     #[Route('/category', name: 'category')]
     public function index(): Response
     {   
-        $this->denyAccessUnlessGranted('ROLE_USER');
+        // $this->denyAccessUnlessGranted('ROLE_USER');
 
         return $this->render('category/index.html.twig', [
             'controller_name' => 'CategoryController',

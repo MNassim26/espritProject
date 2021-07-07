@@ -72,6 +72,16 @@
                   Gestion des fournisseurs
                 </a>
               </li>
+              <li>
+                {% if route_name == "listUsers" or route_name == "addUser" or route_name == "updateUser" %} 
+                  <a href="{{ path('listUsers') }}" class="nav-link active" aria-current="page">
+                {% else %} 
+                  <a href="{{ path('listUsers') }}" class="nav-link text-white" aria-current="page">
+                {% endif %}
+                  <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                  Gestion des utilisateurs
+                </a>
+              </li>
             </ul>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <hr>
